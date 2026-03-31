@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block title %}单位管理 - 第六师兵团库房管理系统{% endblock %}
+
+{% block page_title %}warehouse/菜单栏/unit{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <div class="page-header-left">
+        <h2 class="page-subtitle">单位管理</h2>
+        <p class="page-desc">管理计量单位，如：个、箱、件等</p>
+    </div>
+    <div class="page-header-right">
+        <button class="btn btn-secondary" id="batchDeleteBtn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="3 6 5 6 21 6"/>
+                <path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2"/>
+            </svg>
+            批量删除
+        </button>
+        <button class="btn btn-primary" id="addUnitBtn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="12" y1="5" x2="12" y2="19"/>
+                <line x1="5" y1="12" x2="19" y2="12"/>
+            </svg>
+            新增单位
+        </button>
+    </div>
+</div>
+
+<div class="table-container">
+    <div class="table-wrapper">
+        <table class="data-table" id="unitTable">
+            <thead>
+                <tr>
+                    <th class="table-checkbox">
+                        <input type="checkbox" id="selectAll" class="form-checkbox">
+                    </th>
+                    <th>ID</th>
+                    <th>单位</th>
+                    <th>创建日期</th>
+                    <th>状态</th>
+                    <th>创建人</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody id="unitTableBody">
+                <!-- 数据由JS动态填充 -->
+            </tbody>
+        </table>
+    </div>
+    
+    <div class="table-pagination" id="pagination">
+        <!-- 分页由JS动态生成 -->
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="/static/js/pages/unit.js"></script>
+{% endblock %}

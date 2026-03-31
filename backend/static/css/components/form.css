@@ -1,0 +1,367 @@
+/**
+ * 表单模块 - 顶尖UI设计
+ */
+
+/* 表单组 */
+.form-group {
+    margin-bottom: var(--spacing-lg);
+}
+
+/* 表单标签 */
+.form-label {
+    display: block;
+    font-size: var(--text-sm);
+    color: var(--text-secondary);
+    margin-bottom: var(--spacing-sm);
+    font-weight: var(--font-medium);
+    letter-spacing: 0.3px;
+}
+
+.form-label.required::after {
+    content: '*';
+    color: var(--error-color);
+    margin-left: 4px;
+}
+
+/* 输入框基础样式 */
+.form-input {
+    width: 100%;
+    height: 48px;
+    padding: 0 var(--spacing-md);
+    background: rgba(15, 15, 35, 0.6);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    color: var(--text-primary);
+    font-size: var(--text-sm);
+    transition: all var(--transition-base);
+}
+
+.form-input::placeholder {
+    color: var(--text-muted);
+}
+
+.form-input:hover {
+    border-color: var(--border-light);
+}
+
+.form-input:focus {
+    border-color: var(--primary-color);
+    background: rgba(15, 15, 35, 0.8);
+    box-shadow: 
+        0 0 0 4px rgba(99, 102, 241, 0.1),
+        0 0 20px rgba(99, 102, 241, 0.1);
+}
+
+.form-input:disabled {
+    background: rgba(15, 15, 35, 0.3);
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+/* 输入框错误状态 */
+.form-input.error {
+    border-color: var(--error-color);
+}
+
+.form-input.error:focus {
+    box-shadow: 
+        0 0 0 4px rgba(239, 68, 68, 0.1),
+        0 0 20px rgba(239, 68, 68, 0.1);
+}
+
+/* 输入框成功状态 */
+.form-input.success {
+    border-color: var(--success-color);
+}
+
+.form-input.success:focus {
+    box-shadow: 
+        0 0 0 4px rgba(16, 185, 129, 0.1),
+        0 0 20px rgba(16, 185, 129, 0.1);
+}
+
+/* 文本域 */
+.form-textarea {
+    min-height: 120px;
+    padding: var(--spacing-md);
+    resize: vertical;
+    line-height: 1.6;
+}
+
+/* 选择框 */
+.form-select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2322d3ee' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 16px center;
+    padding-right: 44px;
+    cursor: pointer;
+}
+
+.form-select option {
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    padding: var(--spacing-sm);
+}
+
+/* 复选框和单选框 */
+.form-checkbox,
+.form-radio {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    cursor: pointer;
+    user-select: none;
+}
+
+.form-checkbox input,
+.form-radio input {
+    display: none;
+}
+
+.form-checkbox .checkmark,
+.form-radio .checkmark {
+    width: 22px;
+    height: 22px;
+    border: 2px solid var(--border-color);
+    background: rgba(15, 15, 35, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all var(--transition-fast);
+    flex-shrink: 0;
+}
+
+.form-checkbox .checkmark {
+    border-radius: var(--radius-sm);
+}
+
+.form-radio .checkmark {
+    border-radius: 50%;
+}
+
+.form-checkbox:hover .checkmark,
+.form-radio:hover .checkmark {
+    border-color: var(--primary-color);
+}
+
+.form-checkbox input:checked + .checkmark,
+.form-radio input:checked + .checkmark {
+    background: var(--primary-gradient);
+    border-color: var(--primary-color);
+    box-shadow: 0 0 15px rgba(99, 102, 241, 0.3);
+}
+
+.form-checkbox .checkmark::after {
+    content: '';
+    width: 6px;
+    height: 10px;
+    border: solid var(--text-primary);
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg) scale(0);
+    transition: transform var(--transition-fast);
+}
+
+.form-checkbox input:checked + .checkmark::after {
+    transform: rotate(45deg) scale(1);
+}
+
+.form-radio .checkmark::after {
+    content: '';
+    width: 8px;
+    height: 8px;
+    background: var(--text-primary);
+    border-radius: 50%;
+    transform: scale(0);
+    transition: transform var(--transition-fast);
+}
+
+.form-radio input:checked + .checkmark::after {
+    transform: scale(1);
+}
+
+/* 开关 */
+.form-switch {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    cursor: pointer;
+}
+
+.form-switch input {
+    display: none;
+}
+
+.form-switch .switch-track {
+    width: 48px;
+    height: 26px;
+    background: rgba(15, 15, 35, 0.6);
+    border: 1px solid var(--border-color);
+    border-radius: 13px;
+    position: relative;
+    transition: all var(--transition-base);
+}
+
+.form-switch .switch-thumb {
+    width: 20px;
+    height: 20px;
+    background: var(--text-muted);
+    border-radius: 50%;
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    transition: all var(--transition-base);
+}
+
+.form-switch:hover .switch-track {
+    border-color: var(--border-light);
+}
+
+.form-switch input:checked + .switch-track {
+    background: var(--primary-gradient);
+    border-color: var(--primary-color);
+    box-shadow: 0 0 15px rgba(99, 102, 241, 0.3);
+}
+
+.form-switch input:checked + .switch-track .switch-thumb {
+    background: var(--text-primary);
+    left: 24px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* 输入框图标 */
+.input-with-icon {
+    position: relative;
+}
+
+.input-with-icon .form-input {
+    padding-left: 48px;
+}
+
+.input-with-icon .input-icon {
+    position: absolute;
+    left: var(--spacing-md);
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-muted);
+    pointer-events: none;
+    transition: color var(--transition-fast);
+}
+
+.input-with-icon .input-icon svg {
+    width: 20px;
+    height: 20px;
+}
+
+.input-with-icon .form-input:focus + .input-icon,
+.input-with-icon .form-input:not(:placeholder-shown) + .input-icon {
+    color: var(--primary-color);
+}
+
+/* 输入框后缀 */
+.input-with-suffix {
+    position: relative;
+}
+
+.input-with-suffix .form-input {
+    padding-right: 48px;
+}
+
+.input-with-suffix .input-suffix {
+    position: absolute;
+    right: var(--spacing-md);
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: color var(--transition-fast);
+    padding: var(--spacing-xs);
+}
+
+.input-with-suffix .input-suffix:hover {
+    color: var(--text-primary);
+}
+
+/* 表单错误提示 */
+.form-error {
+    font-size: var(--text-xs);
+    color: var(--error-color);
+    margin-top: var(--spacing-xs);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+/* 表单提示 */
+.form-hint {
+    font-size: var(--text-xs);
+    color: var(--text-muted);
+    margin-top: var(--spacing-xs);
+}
+
+/* 表单行 */
+.form-row {
+    display: flex;
+    gap: var(--spacing-md);
+}
+
+.form-row .form-group {
+    flex: 1;
+}
+
+/* 搜索框 */
+.search-box {
+    position: relative;
+    width: 100%;
+    max-width: 320px;
+}
+
+.search-box .form-input {
+    padding-left: 48px;
+    padding-right: 48px;
+    background: rgba(15, 15, 35, 0.4);
+}
+
+.search-box .search-icon {
+    position: absolute;
+    left: var(--spacing-md);
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-muted);
+}
+
+.search-box .search-icon svg {
+    width: 20px;
+    height: 20px;
+}
+
+.search-box .search-clear {
+    position: absolute;
+    right: var(--spacing-md);
+    top: 50%;
+    transform: translateY(-50%);
+    width: 22px;
+    height: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--border-color);
+    border-radius: 50%;
+    color: var(--text-primary);
+    cursor: pointer;
+    opacity: 0;
+    transition: all var(--transition-fast);
+}
+
+.search-box .search-clear svg {
+    width: 12px;
+    height: 12px;
+}
+
+.search-box .form-input:not(:placeholder-shown) ~ .search-clear {
+    opacity: 1;
+}
+
+.search-box .search-clear:hover {
+    background: var(--primary-color);
+}

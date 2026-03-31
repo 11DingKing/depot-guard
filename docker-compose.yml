@@ -1,0 +1,67 @@
+# 第六师兵团库房管理系统 - Docker Compose配置
+version: '3.8'
+
+services:
+  # MySQL数据库
+  db:
+    image: mysql:8.0
+    platform: linux/amd64
+    container_name: warehouse_db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root123456
+      MYSQL_DATABASE: warehouse_db
+      MYSQL_CHARSET: utf8mb4
+      MYSQL_COLLATION: utf8mb4_unicode_ci
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./backend/scripts/schema.sql:/docker-entrypoint-initdb.d/schema.sql:ro
+    command: --default-authentication-plugin=mysql_native_password --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-proot123456"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - warehouse_network
+
+  # Django后端
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: warehouse_backend
+    restart: always
+    environment:
+      - USE_MYSQL=true
+      - DB_HOST=db
+      - DB_PORT=3306
+      - DB_NAME=warehouse_db
+      - DB_USER=root
+      - DB_PASSWORD=root123456
+      - DJANGO_DEBUG=False
+      - DJANGO_SECRET_KEY=warehouse-secret-key-production-2024
+      - JWT_SECRET_KEY=warehouse-jwt-secret-key-production-2024
+    ports:
+      - "8081:8000"
+    volumes:
+      - backend_static:/app/staticfiles
+      - backend_media:/app/media
+      - backend_logs:/app/logs
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - warehouse_network
+
+volumes:
+  mysql_data:
+  backend_static:
+  backend_media:
+  backend_logs:
+
+networks:
+  warehouse_network:
+    driver: bridge

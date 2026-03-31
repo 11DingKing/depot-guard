@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block title %}考勤人员管理 - 第六师兵团库房管理系统{% endblock %}
+
+{% block page_title %}warehouse/菜单栏/attendance-person{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <div class="page-header-left">
+        <h2 class="page-subtitle">考勤人员管理</h2>
+        <p class="page-desc">管理系统登录用户，设置权限</p>
+    </div>
+    <div class="page-header-right">
+        <button class="btn btn-primary" id="addUserBtn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="12" y1="5" x2="12" y2="19"/>
+                <line x1="5" y1="12" x2="19" y2="12"/>
+            </svg>
+            新增用户
+        </button>
+    </div>
+</div>
+
+<div class="table-container">
+    <div class="table-wrapper">
+        <table class="data-table" id="userTable">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>用户名</th>
+                    <th>角色</th>
+                    <th>关联出库人员</th>
+                    <th>创建时间</th>
+                    <th>最后登录</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody id="userTableBody">
+                <!-- 数据由JS动态填充 -->
+            </tbody>
+        </table>
+    </div>
+    
+    <div class="table-pagination" id="pagination">
+        <!-- 分页由JS动态生成 -->
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="/static/js/pages/attendance_person.js"></script>
+{% endblock %}

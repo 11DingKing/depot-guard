@@ -1,0 +1,51 @@
+# Django Core
+Django==4.2.9
+djangorestframework==3.14.0
+
+# Database
+PyMySQL==1.1.0
+
+# Static Files (Production)
+whitenoise==6.6.0
+
+# Forms & UI
+django-crispy-forms==2.1
+crispy-bootstrap5==2024.2
+
+# Excel & File Processing
+openpyxl==3.1.2
+pillow==10.2.0
+django-storages==1.14.2
+python-multipart==0.0.6
+
+# Filtering & Import/Export
+django-filter==23.5
+django-import-export==3.3.6
+tablib[xlsx,yaml]==3.5.0
+
+# CORS
+django-cors-headers==4.3.1
+
+# Development & Debug
+django-debug-toolbar==4.2.0
+
+# Scheduled Tasks
+django-crontab==0.7.1
+
+# System Monitoring
+psutil==5.9.8
+
+# Security
+PyJWT==2.8.0
+
+# Logging
+python-json-logger==2.0.7
+
+# WSGI Server
+gunicorn==21.2.0
+
+# Testing
+pytest==7.4.4
+pytest-django==4.7.0
+pytest-cov==4.1.0
+factory-boy==3.3.0

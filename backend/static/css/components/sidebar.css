@@ -1,0 +1,385 @@
+/**
+ * 侧边栏菜单模块 - 顶尖UI设计
+ */
+
+/* 侧边栏容器 */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: var(--sidebar-width);
+    height: 100vh;
+    background: linear-gradient(180deg, var(--bg-secondary) 0%, var(--bg-primary) 100%);
+    border-right: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    z-index: 100;
+    transition: width var(--transition-base);
+}
+
+/* 侧边栏光效 */
+.sidebar::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 1px;
+    height: 100%;
+    background: linear-gradient(
+        180deg,
+        transparent,
+        var(--primary-color),
+        var(--accent-color),
+        transparent
+    );
+    opacity: 0.5;
+}
+
+/* Logo区域 */
+.sidebar-logo {
+    height: var(--header-height);
+    padding: 0 var(--spacing-lg);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    border-bottom: 1px solid var(--border-color);
+    flex-shrink: 0;
+    background: rgba(99, 102, 241, 0.03);
+}
+
+.sidebar-logo .logo-icon {
+    width: 44px;
+    height: 44px;
+    background: var(--primary-gradient);
+    border-radius: var(--radius-lg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    box-shadow: 
+        0 4px 15px rgba(99, 102, 241, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    position: relative;
+}
+
+.sidebar-logo .logo-icon::before {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    background: var(--primary-gradient);
+    border-radius: var(--radius-lg);
+    z-index: -1;
+    filter: blur(10px);
+    opacity: 0.4;
+}
+
+.sidebar-logo .logo-icon svg {
+    width: 24px;
+    height: 24px;
+    color: var(--text-primary);
+}
+
+.sidebar-logo .logo-text {
+    font-family: var(--font-display);
+    font-size: var(--text-base);
+    font-weight: var(--font-semibold);
+    color: var(--text-primary);
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.sidebar-logo .logo-subtitle {
+    font-size: var(--text-xs);
+    color: var(--text-muted);
+    margin-top: 2px;
+    letter-spacing: 1px;
+}
+
+/* 菜单区域 */
+.sidebar-menu {
+    flex: 1;
+    overflow-y: auto;
+    padding: var(--spacing-md) 0;
+}
+
+/* 菜单项 */
+.menu-item {
+    position: relative;
+}
+
+.menu-link {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    padding: var(--spacing-md) var(--spacing-lg);
+    color: var(--text-secondary);
+    transition: all var(--transition-fast);
+    cursor: pointer;
+    border-left: 3px solid transparent;
+    margin: 2px 0;
+    position: relative;
+}
+
+.menu-link::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 0;
+    height: 100%;
+    background: linear-gradient(90deg, rgba(99, 102, 241, 0.1), transparent);
+    transition: width var(--transition-fast);
+}
+
+.menu-link:hover {
+    color: var(--text-primary);
+}
+
+.menu-link:hover::before {
+    width: 100%;
+}
+
+.menu-link.active {
+    color: var(--accent-color);
+    border-left-color: var(--accent-color);
+    background: linear-gradient(90deg, rgba(34, 211, 238, 0.1), transparent);
+}
+
+.menu-link.active::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 3px;
+    height: 60%;
+    background: var(--accent-color);
+    box-shadow: 0 0 10px var(--accent-color);
+    border-radius: 0 2px 2px 0;
+}
+
+.menu-link .menu-icon {
+    width: 22px;
+    height: 22px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 1;
+}
+
+.menu-link .menu-icon svg {
+    width: 20px;
+    height: 20px;
+}
+
+.menu-link.active .menu-icon {
+    filter: drop-shadow(0 0 6px var(--accent-color));
+}
+
+.menu-link .menu-text {
+    flex: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: var(--text-sm);
+    position: relative;
+    z-index: 1;
+}
+
+.menu-link .menu-arrow {
+    width: 18px;
+    height: 18px;
+    transition: transform var(--transition-fast);
+    position: relative;
+    z-index: 1;
+}
+
+.menu-link .menu-arrow svg {
+    width: 16px;
+    height: 16px;
+}
+
+.menu-item.open > .menu-link .menu-arrow {
+    transform: rotate(90deg);
+}
+
+/* 子菜单 */
+.submenu {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height var(--transition-base);
+    background: rgba(0, 0, 0, 0.15);
+}
+
+.menu-item.open > .submenu {
+    max-height: 500px;
+}
+
+.submenu .menu-link {
+    padding-left: calc(var(--spacing-lg) + 34px);
+    font-size: var(--text-xs);
+}
+
+.submenu .menu-link::before {
+    content: '';
+    position: absolute;
+    left: calc(var(--spacing-lg) + 10px);
+    top: 50%;
+    transform: translateY(-50%);
+    width: 6px;
+    height: 6px;
+    background: var(--border-color);
+    border-radius: 50%;
+    transition: all var(--transition-fast);
+}
+
+.submenu .menu-link:hover::before,
+.submenu .menu-link.active::before {
+    background: var(--accent-color);
+    box-shadow: 0 0 8px var(--accent-color);
+}
+
+/* 菜单分组标题 */
+.menu-group-title {
+    padding: var(--spacing-lg) var(--spacing-lg) var(--spacing-sm);
+    font-size: var(--text-xs);
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: var(--font-medium);
+}
+
+/* 菜单徽章 */
+.menu-badge {
+    min-width: 22px;
+    height: 22px;
+    padding: 0 7px;
+    background: linear-gradient(135deg, var(--error-color), var(--error-light));
+    color: var(--text-primary);
+    font-size: 11px;
+    font-weight: var(--font-semibold);
+    border-radius: 11px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 8px rgba(239, 68, 68, 0.4);
+    position: relative;
+    z-index: 1;
+}
+
+/* 侧边栏底部 */
+.sidebar-footer {
+    padding: var(--spacing-md) var(--spacing-lg);
+    border-top: 1px solid var(--border-color);
+    flex-shrink: 0;
+    background: rgba(0, 0, 0, 0.1);
+}
+
+/* 折叠状态 */
+.sidebar.collapsed {
+    width: var(--sidebar-collapsed);
+}
+
+.sidebar.collapsed .logo-text,
+.sidebar.collapsed .logo-subtitle,
+.sidebar.collapsed .menu-text,
+.sidebar.collapsed .menu-arrow,
+.sidebar.collapsed .menu-badge,
+.sidebar.collapsed .menu-group-title {
+    display: none;
+}
+
+.sidebar.collapsed .sidebar-logo {
+    padding: 0;
+    justify-content: center;
+}
+
+.sidebar.collapsed .menu-link {
+    justify-content: center;
+    padding: var(--spacing-md);
+}
+
+.sidebar.collapsed .submenu {
+    position: absolute;
+    left: 100%;
+    top: 0;
+    width: 200px;
+    max-height: none;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    opacity: 0;
+    visibility: hidden;
+    transition: all var(--transition-fast);
+}
+
+.sidebar.collapsed .menu-item:hover > .submenu {
+    opacity: 1;
+    visibility: visible;
+}
+
+.sidebar.collapsed .submenu .menu-link {
+    padding-left: var(--spacing-md);
+}
+
+.sidebar.collapsed .submenu .menu-link::before {
+    left: var(--spacing-sm);
+}
+
+/* 折叠按钮 */
+.sidebar-toggle {
+    position: absolute;
+    right: -14px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 28px;
+    height: 28px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: var(--text-secondary);
+    transition: all var(--transition-fast);
+    z-index: 10;
+    box-shadow: var(--shadow-sm);
+}
+
+.sidebar-toggle:hover {
+    background: var(--primary-gradient);
+    color: var(--text-primary);
+    border-color: var(--primary-color);
+    box-shadow: 0 0 15px rgba(99, 102, 241, 0.4);
+}
+
+.sidebar-toggle svg {
+    width: 14px;
+    height: 14px;
+    transition: transform var(--transition-fast);
+}
+
+.sidebar.collapsed .sidebar-toggle svg {
+    transform: rotate(180deg);
+}
+
+/* 移动端适配 */
+@media (max-width: 768px) {
+    .sidebar {
+        transform: translateX(-100%);
+        box-shadow: var(--shadow-lg);
+    }
+    
+    .sidebar.mobile-open {
+        transform: translateX(0);
+    }
+    
+    .sidebar-toggle {
+        display: none;
+    }
+}

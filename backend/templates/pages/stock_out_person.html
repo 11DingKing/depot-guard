@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block title %}出库人员管理 - 第六师兵团库房管理系统{% endblock %}
+
+{% block page_title %}warehouse/菜单栏/stock-out-person{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <div class="page-header-left">
+        <h2 class="page-subtitle">出库人员管理</h2>
+        <p class="page-desc">管理出库人员信息，绑定管理员账号</p>
+    </div>
+    <div class="page-header-right">
+        <button class="btn btn-primary" id="addPersonBtn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="12" y1="5" x2="12" y2="19"/>
+                <line x1="5" y1="12" x2="19" y2="12"/>
+            </svg>
+            新增出库人员
+        </button>
+    </div>
+</div>
+
+<div class="table-container">
+    <div class="table-wrapper">
+        <table class="data-table" id="personTable">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>警号</th>
+                    <th>姓名</th>
+                    <th>手机号</th>
+                    <th>关联管理员</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody id="personTableBody">
+                <!-- 数据由JS动态填充 -->
+            </tbody>
+        </table>
+    </div>
+    
+    <div class="table-pagination" id="pagination">
+        <!-- 分页由JS动态生成 -->
+    </div>
+</div>
+
+<!-- 示范图片 -->
+<div class="sample-image-container hidden" id="sampleImageContainer">
+    <div class="sample-image-title">蓝底照片示范</div>
+    <img src="/static/images/001.png" alt="蓝底照片示范" class="sample-image">
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="/static/js/pages/stock_out_person.js"></script>
+{% endblock %}

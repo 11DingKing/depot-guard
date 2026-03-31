@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>前端测试 - 第六师兵团库房管理系统</title>
+    <link rel="stylesheet" href="/static/css/variables.css">
+    <link rel="stylesheet" href="/static/css/base.css">
+    <link rel="stylesheet" href="/static/css/components/loading.css">
+    <link rel="stylesheet" href="/static/css/components/toast.css">
+    <link rel="stylesheet" href="/static/css/components/form.css">
+    <link rel="stylesheet" href="/static/css/components/button.css">
+    <style>
+        .test-container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+        .test-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .test-title {
+            font-family: var(--font-family);
+            font-size: 24px;
+            color: var(--accent-color);
+            margin-bottom: 10px;
+        }
+        .test-output {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 20px;
+            font-family: monospace;
+            font-size: 14px;
+            white-space: pre-wrap;
+            max-height: 500px;
+            overflow-y: auto;
+        }
+        .test-actions {
+            margin-top: 20px;
+            text-align: center;
+        }
+        .pass { color: var(--success-color); }
+        .fail { color: var(--error-color); }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <div class="test-header">
+            <h1 class="test-title">前端模块测试</h1>
+            <p style="color: var(--text-muted);">点击按钮运行所有前端测试用例</p>
+        </div>
+        
+        <div class="test-actions">
+            <button id="runTestsBtn" class="btn btn-primary">运行测试</button>
+            <button id="clearBtn" class="btn btn-secondary">清除输出</button>
+        </div>
+        
+        <div id="testOutput" class="test-output" style="margin-top: 20px;">
+            等待运行测试...
+        </div>
+    </div>
+    
+    <!-- JavaScript模块 -->
+    <script src="/static/js/utils/api.js"></script>
+    <script src="/static/js/utils/loading.js"></script>
+    <script src="/static/js/utils/toast.js"></script>
+    <script src="/static/js/utils/form.js"></script>
+    <script src="/static/js/utils/captcha.js"></script>
+    <script src="/static/js/tests/test_api.js"></script>
+    
+    <script>
+        const output = document.getElementById('testOutput');
+        const runBtn = document.getElementById('runTestsBtn');
+        const clearBtn = document.getElementById('clearBtn');
+        
+        // 重写console.log以显示在页面上
+        const originalLog = console.log;
+        const originalError = console.error;
+        
+        console.log = function(...args) {
+            originalLog.apply(console, args);
+            const text = args.join(' ');
+            const span = document.createElement('span');
+            if (text.includes('PASS')) {
+                span.className = 'pass';
+            }
+            span.textContent = text + '\n';
+            output.appendChild(span);
+            output.scrollTop = output.scrollHeight;
+        };
+        
+        console.error = function(...args) {
+            originalError.apply(console, args);
+            const text = args.join(' ');
+            const span = document.createElement('span');
+            span.className = 'fail';
+            span.textContent = text + '\n';
+            output.appendChild(span);
+            output.scrollTop = output.scrollHeight;
+        };
+        
+        runBtn.addEventListener('click', async function() {
+            output.innerHTML = '';
+            runBtn.disabled = true;
+            runBtn.textContent = '测试中...';
+            
+            try {
+                await runAllTests();
+            } catch (e) {
+                console.error('测试运行错误:', e);
+            }
+            
+            runBtn.disabled = false;
+            runBtn.textContent = '运行测试';
+        });
+        
+        clearBtn.addEventListener('click', function() {
+            output.innerHTML = '等待运行测试...';
+        });
+    </script>
+</body>
+</html>
