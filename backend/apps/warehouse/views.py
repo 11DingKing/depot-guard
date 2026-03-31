@@ -563,13 +563,22 @@ class VarietyImportView(APIView):
 
 # ==================== 其他视图占位 ====================
 
-class DashboardView(APIView):
-    """仪表盘视图"""
+class DashboardStatsView(APIView):
+    """仪表盘统计数据视图"""
     permission_classes = [IsAuthenticated]
     
     def get(self, request):
+        from django.utils import timezone
+        from apps.personnel.models import StockOutPerson
+        
+        today = timezone.now().date()
+        
         return success_response(data={
-            'message': '仪表盘功能开发中...'
+            'unit_count': Unit.objects.count(),
+            'category_count': Category.objects.count(),
+            'variety_count': Variety.objects.count(),
+            'stock_out_person_count': StockOutPerson.objects.count(),
+            'today_variety_count': Variety.objects.filter(created_at__date=today).count()
         })
 
 
