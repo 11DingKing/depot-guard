@@ -4,20 +4,143 @@
 
 {% block page_title %}warehouse/菜单栏/dashboard{% endblock %}
 
+{% block extra_css %}
+<style>
+    .dashboard-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: var(--spacing-lg);
+    }
+    
+    .stat-card-value {
+        display: flex;
+        align-items: baseline;
+        gap: var(--spacing-xs);
+    }
+    
+    .stat-card-value .suffix {
+        font-size: var(--text-sm);
+        color: var(--text-muted);
+        font-weight: var(--font-normal);
+    }
+    
+    .welcome-section {
+        margin-bottom: var(--spacing-xl);
+        padding: var(--spacing-lg);
+        background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
+        border: 1px solid var(--border-color);
+        border-radius: var(--radius-xl);
+    }
+    
+    .welcome-title {
+        font-size: var(--text-2xl);
+        font-weight: var(--font-bold);
+        color: var(--text-primary);
+        margin-bottom: var(--spacing-sm);
+    }
+    
+    .welcome-desc {
+        color: var(--text-secondary);
+        font-size: var(--text-base);
+    }
+</style>
+{% endblock %}
+
 {% block content %}
-<div class="developing-container">
-    <div class="developing-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <rect x="3" y="3" width="7" height="7"/>
-            <rect x="14" y="3" width="7" height="7"/>
-            <rect x="14" y="14" width="7" height="7"/>
-            <rect x="3" y="14" width="7" height="7"/>
-        </svg>
+<div class="welcome-section">
+    <h1 class="welcome-title">欢迎使用库房管理系统</h1>
+    <p class="welcome-desc">实时数据统计与概览</p>
+</div>
+
+<div class="dashboard-grid" id="dashboardGrid">
+    <div class="stat-card primary">
+        <div class="stat-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                <path d="M2 17l10 5 10-5"/>
+                <path d="M2 12l10 5 10-5"/>
+            </svg>
+        </div>
+        <div class="stat-card-content">
+            <div class="stat-card-label">单位总数</div>
+            <div class="stat-card-value">
+                <span class="number" id="unitCount">--</span>
+                <span class="suffix">个</span>
+            </div>
+        </div>
     </div>
-    <h2 class="developing-title">仪表盘</h2>
-    <p class="developing-desc">该功能正在开发中，敬请期待...</p>
-    <div class="developing-progress">
-        <div class="developing-progress-bar"></div>
+
+    <div class="stat-card success">
+        <div class="stat-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                <path d="M9 9h6v6H9z"/>
+            </svg>
+        </div>
+        <div class="stat-card-content">
+            <div class="stat-card-label">品类总数</div>
+            <div class="stat-card-value">
+                <span class="number" id="categoryCount">--</span>
+                <span class="suffix">个</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="stat-card warning">
+        <div class="stat-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M20 7h-9a2 2 0 0 0-2 2v11a2 2 0 0 0 2 2h9a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/>
+                <polyline points="16 3 21 3 21 8"/>
+                <line x1="10" y1="12" x2="21" y2="12"/>
+                <line x1="10" y1="16" x2="21" y2="16"/>
+                <line x1="10" y1="20" x2="16" y2="20"/>
+            </svg>
+        </div>
+        <div class="stat-card-content">
+            <div class="stat-card-label">品种总数</div>
+            <div class="stat-card-value">
+                <span class="number" id="varietyCount">--</span>
+                <span class="suffix">个</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="stat-card info">
+        <div class="stat-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                <circle cx="9" cy="7" r="4"/>
+                <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+            </svg>
+        </div>
+        <div class="stat-card-content">
+            <div class="stat-card-label">出库人员总数</div>
+            <div class="stat-card-value">
+                <span class="number" id="stockOutPersonCount">--</span>
+                <span class="suffix">人</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="stat-card danger">
+        <div class="stat-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <polyline points="12 6 12 12 16 14"/>
+            </svg>
+        </div>
+        <div class="stat-card-content">
+            <div class="stat-card-label">今日新增品种</div>
+            <div class="stat-card-value">
+                <span class="number" id="todayVarietyCount">--</span>
+                <span class="suffix">个</span>
+            </div>
+        </div>
     </div>
 </div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="/static/js/pages/dashboard.js"></script>
 {% endblock %}
