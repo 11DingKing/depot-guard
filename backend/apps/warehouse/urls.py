@@ -7,13 +7,14 @@ from .views import (
     CategoryListView, CategoryDetailView, CategoryBatchDeleteView, CategoryAllView,
     VarietyListView, VarietyDetailView, VarietyBatchDeleteView,
     VarietyTemplateView, VarietyImportView,
-    DashboardView, GoodsListView, StockInListView, StockOutListView,
+    DashboardView, DashboardStatsView, GoodsListView, StockInListView, StockOutListView,
     WarningListView, ApprovalListView
 )
 
 urlpatterns = [
     # 仪表盘
     path('dashboard/', DashboardView.as_view(), name='dashboard'),
+    path('dashboard/stats/', DashboardStatsView.as_view(), name='dashboard-stats'),
     
     # 单位管理
     path('units/', UnitListView.as_view(), name='unit-list'),

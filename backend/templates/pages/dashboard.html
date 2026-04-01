@@ -5,19 +5,81 @@
 {% block page_title %}warehouse/菜单栏/dashboard{% endblock %}
 
 {% block content %}
-<div class="developing-container">
-    <div class="developing-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <rect x="3" y="3" width="7" height="7"/>
-            <rect x="14" y="3" width="7" height="7"/>
-            <rect x="14" y="14" width="7" height="7"/>
-            <rect x="3" y="14" width="7" height="7"/>
-        </svg>
+<div class="dashboard-container">
+    <div class="dashboard-header">
+        <h1 class="dashboard-title">数据概览</h1>
+        <p class="dashboard-subtitle">实时统计库房核心数据指标</p>
     </div>
-    <h2 class="developing-title">仪表盘</h2>
-    <p class="developing-desc">该功能正在开发中，敬请期待...</p>
-    <div class="developing-progress">
-        <div class="developing-progress-bar"></div>
+    
+    <div class="stats-grid" id="statsGrid">
+        <div class="stat-card primary" data-stat="unit">
+            <div class="stat-card-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                    <circle cx="9" cy="7" r="4"/>
+                    <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                    <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                </svg>
+            </div>
+            <div class="stat-card-content">
+                <div class="stat-card-label">单位总数</div>
+                <div class="stat-card-value" id="unitCount">--</div>
+            </div>
+        </div>
+        
+        <div class="stat-card success" data-stat="category">
+            <div class="stat-card-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+                    <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
+                    <line x1="12" y1="22.08" x2="12" y2="12"/>
+                </svg>
+            </div>
+            <div class="stat-card-content">
+                <div class="stat-card-label">品类总数</div>
+                <div class="stat-card-value" id="categoryCount">--</div>
+            </div>
+        </div>
+        
+        <div class="stat-card warning" data-stat="variety">
+            <div class="stat-card-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+                    <line x1="8" y1="21" x2="16" y2="21"/>
+                    <line x1="12" y1="17" x2="12" y2="21"/>
+                </svg>
+            </div>
+            <div class="stat-card-content">
+                <div class="stat-card-label">品种总数</div>
+                <div class="stat-card-value" id="varietyCount">--</div>
+            </div>
+        </div>
+        
+        <div class="stat-card danger" data-stat="person">
+            <div class="stat-card-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                    <circle cx="12" cy="7" r="4"/>
+                </svg>
+            </div>
+            <div class="stat-card-content">
+                <div class="stat-card-label">出库人员总数</div>
+                <div class="stat-card-value" id="personCount">--</div>
+            </div>
+        </div>
+        
+        <div class="stat-card info" data-stat="today">
+            <div class="stat-card-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"/>
+                    <polyline points="12 6 12 12 16 14"/>
+                </svg>
+            </div>
+            <div class="stat-card-content">
+                <div class="stat-card-label">今日新增品种数</div>
+                <div class="stat-card-value" id="todayCount">--</div>
+            </div>
+        </div>
     </div>
 </div>
 {% endblock %}
