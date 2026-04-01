@@ -3,6 +3,7 @@
 """
 import logging
 import io
+from django.utils import timezone
 from django.http import HttpResponse
 from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
@@ -10,6 +11,7 @@ from rest_framework.parsers import MultiPartParser, FormParser, JSONParser
 from openpyxl import Workbook, load_workbook
 from openpyxl.styles import Font, Alignment, PatternFill, Border, Side
 from apps.core.response import success_response, error_response
+from apps.personnel.models import StockOutPerson
 from .models import Unit, Category, Variety, Goods, StockIn, StockOut, Warning, Approval
 from .serializers import (
     UnitSerializer, UnitCreateSerializer,
@@ -561,7 +563,7 @@ class VarietyImportView(APIView):
         )
 
 
-# ==================== 其他视图占位 ====================
+# ==================== 仪表盘 ====================
 
 class DashboardView(APIView):
     """仪表盘视图"""
@@ -570,6 +572,28 @@ class DashboardView(APIView):
     def get(self, request):
         return success_response(data={
             'message': '仪表盘功能开发中...'
+        })
+
+
+class DashboardStatsView(APIView):
+    """仪表盘统计数据视图"""
+    permission_classes = [IsAuthenticated]
+    
+    def get(self, request):
+        today = timezone.now().date()
+        
+        unit_count = Unit.objects.count()
+        category_count = Category.objects.count()
+        variety_count = Variety.objects.count()
+        stock_out_person_count = StockOutPerson.objects.filter(is_active=True).count()
+        today_variety_count = Variety.objects.filter(created_at__date=today).count()
+        
+        return success_response(data={
+            'unit_count': unit_count,
+            'category_count': category_count,
+            'variety_count': variety_count,
+            'stock_out_person_count': stock_out_person_count,
+            'today_variety_count': today_variety_count
         })
 
 
