@@ -251,6 +251,10 @@ const API = {
         return this.get('/dashboard/');
     },
     
+    getDashboardStats() {
+        return this.get('/dashboard/stats/');
+    },
+    
     // ==================== 货物管理 ====================
     
     getGoods(params = {}) {
